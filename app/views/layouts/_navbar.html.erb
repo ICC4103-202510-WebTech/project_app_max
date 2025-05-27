@@ -16,6 +16,14 @@
           <span>Projects</span>
         <% end %>
       </ul>
+
+      <% if user_signed_in? %>
+        <ul class="navbar-nav ms-auto">
+            <li><%= link_to 'Logout', destroy_user_session_path, method: :delete, data: { turbo_method: :delete }  %></li>
+        </ul>
+      <% end %>
     </div>
+    
+
   </div>
 </nav>
