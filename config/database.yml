@@ -84,6 +84,7 @@ production:
     database: project_app_web_production
     username: project_app_web
     password: <%= ENV["PROJECT_APP_WEB_DATABASE_PASSWORD"] %>
+    host: db
   cache:
     <<: *primary_production
     database: project_app_web_production_cache

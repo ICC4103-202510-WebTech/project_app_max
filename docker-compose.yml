@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: project_app_web
+      POSTGRES_DB: project_app_web_production
+    volumes:
+      - ./pg_data:/var/lib/postgresql/data
+
+  web:
+    build: .
+    entrypoint: []
+    command: bash -c "bundle exec rails server -b 0.0.0.0 -p 3000 --binding=0.0.0.0"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      RAILS_MASTER_KEY: ae0e8add421ddedb944c4f514d1bc8bf
+      PROJECT_APP_WEB_DATABASE_PASSWORD: password
+      DATABASE_URL: postgres://project_app_web:password@db:5432/project_app_web_production
+      RAILS_ENV: production
+      BINDING: 0.0.0.0
+      DISABLE_HOST_CHECK: 'true'
+      ALLOWED_HOST: '*'
+      WEB_CONCURRENCY: 1
+volumes:
+  pg_data:
