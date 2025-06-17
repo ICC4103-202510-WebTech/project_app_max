@@ -69,7 +69,7 @@ Rails.application.configure do
   # }
   #
   config.hosts = [
-    "64.23.134.83"
+    "159.223.156.248"
   ]
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
