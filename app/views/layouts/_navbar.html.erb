@@ -10,10 +10,43 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
+      <ul class="navbar-nav me-auto">
         <%= link_to projects_path, class: "nav-link d-flex align-items-center gap-2 #{current_page?(projects_path) ? 'active' : ''}" do %>
           <i class="bi bi-folder"></i>
           <span>Projects</span>
+        <% end %>
+      </ul>
+
+      <ul class="navbar-nav">
+        <% if user_signed_in? %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" href="#" role="button" data-bs-toggle="dropdown">
+              <i class="bi bi-person-circle"></i>
+              <span><%= current_user.email %></span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li>
+                <%= link_to edit_user_registration_path, class: 'dropdown-item d-flex align-items-center gap-2' do %>
+                  <i class="bi bi-gear"></i>
+                  <span>Settings</span>
+                <% end %>
+              </li>
+              <li><hr class="dropdown-divider"></li>
+              <li>
+                <%= button_to destroy_user_session_path, method: :delete, class: 'dropdown-item d-flex align-items-center gap-2 text-danger' do %>
+                  <i class="bi bi-box-arrow-right"></i>
+                  <span>Sign out</span>
+                <% end %>
+              </li>
+            </ul>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to new_user_session_path, class: 'nav-link d-flex align-items-center gap-2' do %>
+              <i class="bi bi-box-arrow-in-right"></i>
+              <span>Sign in</span>
+            <% end %>
+          </li>
         <% end %>
       </ul>
     </div>

@@ -1,6 +1,8 @@
 class TasksController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_project
   before_action :set_task, only: [ :show, :edit, :update, :destroy ]
+  load_and_authorize_resource
 
   def index
     @tasks = @project.tasks
@@ -49,6 +51,6 @@ class TasksController < ApplicationController
   end
 
   def tasks_params
-    params.require(:task).permit(:name, :status)
+    params.require(:task).permit(:name, :description, :status).merge(user_id: current_user.id)
   end
 end
